@@ -6,7 +6,15 @@ const FilterPanel = ({ filters, onFilterChange }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const numValue = name.includes('Rating') ? parseInt(value) : parseFloat(value);
+    let numValue;
+    
+    if (name.includes('Rating')) {
+      numValue = parseInt(value);
+    } else if (name === 'lat' || name === 'lng') {
+      numValue = parseFloat(value);
+    } else {
+      numValue = parseFloat(value);
+    }
     
     setLocalFilters(prev => ({
       ...prev,
@@ -22,6 +30,8 @@ const FilterPanel = ({ filters, onFilterChange }) => {
     const resetFilters = {
       minRating: 1,
       maxRating: 5,
+      lat: null,
+      lng: null,
       proximityRadius: 10
     };
     setLocalFilters(resetFilters);
@@ -41,10 +51,10 @@ const FilterPanel = ({ filters, onFilterChange }) => {
             name="minRating"
             min="1"
             max="5"
-            value={localFilters.minRating}
+            value={localFilters.minRating || 1}
             onChange={handleChange}
           />
-          <span>{localFilters.minRating} ★</span>
+          <span>{localFilters.minRating || 1} ★</span>
         </div>
         
         <div className="filter-control">
@@ -55,10 +65,36 @@ const FilterPanel = ({ filters, onFilterChange }) => {
             name="maxRating"
             min="1"
             max="5"
-            value={localFilters.maxRating}
+            value={localFilters.maxRating || 5}
             onChange={handleChange}
           />
-          <span>{localFilters.maxRating} ★</span>
+          <span>{localFilters.maxRating || 5} ★</span>
+        </div>
+        
+        <div className="filter-control">
+          <label htmlFor="lat">Latitude</label>
+          <input
+            type="number"
+            id="lat"
+            name="lat"
+            value={localFilters.lat || ''}
+            onChange={handleChange}
+            placeholder="e.g., 19.076"
+            step="any"
+          />
+        </div>
+        
+        <div className="filter-control">
+          <label htmlFor="lng">Longitude</label>
+          <input
+            type="number"
+            id="lng"
+            name="lng"
+            value={localFilters.lng || ''}
+            onChange={handleChange}
+            placeholder="e.g., 72.877"
+            step="any"
+          />
         </div>
         
         <div className="filter-control">
@@ -69,10 +105,10 @@ const FilterPanel = ({ filters, onFilterChange }) => {
             name="proximityRadius"
             min="1"
             max="50"
-            value={localFilters.proximityRadius}
+            value={localFilters.proximityRadius || 10}
             onChange={handleChange}
           />
-          <span>{localFilters.proximityRadius} km</span>
+          <span>{localFilters.proximityRadius || 10} km</span>
         </div>
       </div>
       

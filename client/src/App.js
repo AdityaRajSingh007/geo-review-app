@@ -10,6 +10,8 @@ function App() {
   const [filters, setFilters] = useState({
     minRating: 1,
     maxRating: 5,
+    lat: null,
+    lng: null,
     proximityRadius: 10 // in km
   });
 
@@ -17,12 +19,27 @@ function App() {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const queryParams = new URLSearchParams({
-          minRating: filters.minRating,
-          maxRating: filters.maxRating
-        }).toString();
+        const queryParams = {};
+        if (filters.minRating !== undefined && filters.minRating !== null) {
+          queryParams.minRating = filters.minRating;
+        }
+        if (filters.maxRating !== undefined && filters.maxRating !== null) {
+          queryParams.maxRating = filters.maxRating;
+        }
+        if (filters.lat !== undefined && filters.lat !== null) {
+          queryParams.lat = filters.lat;
+        }
+        if (filters.lng !== undefined && filters.lng !== null) {
+          queryParams.lng = filters.lng;
+        }
+        if (filters.proximityRadius !== undefined && filters.proximityRadius !== null) {
+          queryParams.radius = filters.proximityRadius;
+        }
 
-        const response = await fetch(`/api/reviews?${queryParams}`);
+        const queryString = new URLSearchParams(queryParams).toString();
+        const url = queryString ? `https://geo-review-app.onrender.com/api/reviews?${queryString}` : `https://geo-review-app.onrender.com/api/reviews`;
+
+        const response = await fetch(url);
         const data = await response.json();
         setReviews(data);
       } catch (error) {
@@ -35,7 +52,7 @@ function App() {
 
   const handleReviewSubmit = async (reviewData) => {
     try {
-      const response = await fetch('/api/reviews', {
+      const response = await fetch('https://geo-review-app.onrender.com/api/reviews', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -56,7 +73,7 @@ function App() {
 
   const handleReviewUpdate = async (id, reviewData) => {
     try {
-      const response = await fetch(`/api/reviews/${id}`, {
+      const response = await fetch(`https://geo-review-app.onrender.com/api/reviews/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -77,7 +94,7 @@ function App() {
 
   const handleReviewDelete = async (id) => {
     try {
-      const response = await fetch(`/api/reviews/${id}`, {
+      const response = await fetch(`https://geo-review-app.onrender.com/api/reviews/${id}`, {
         method: 'DELETE'
       });
 
