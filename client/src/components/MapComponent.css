@@ -1,0 +1,44 @@
+.popup-content {
+  min-width: 250px;
+}
+
+.popup-content h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.popup-content p {
+  margin-bottom: 0.5rem;
+}
+
+.popup-actions {
+ display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.popup-actions button,
+.edit-form button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.edit-form {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #eee;
+}
+
+.edit-form input,
+.edit-form textarea,
+.edit-form select {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.edit-form textarea {
+  height: 60px;
+}
