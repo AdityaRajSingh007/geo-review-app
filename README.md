@@ -2,7 +2,7 @@
 
 A MERN stack application that allows users to post reviews tied to geographic locations and view them on an interactive map.
 
-## 🚀 Live Demo
+## 🚀 Live Demo https://geo-review-app.vercel.app/
 
 The application is deployed and running on:
 - Client (Frontend): Deployed on Vercel
